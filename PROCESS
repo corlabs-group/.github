@@ -1,0 +1,151 @@
+# Corlabs Workflow
+
+Este documento define el flujo de trabajo común para los proyectos del grupo `corlabstech`.
+
+El objetivo es mantener un sistema simple: ChatGPT ayuda a pensar y definir, GitLab registra el trabajo accionable, OpenCode implementa y el código junto con las migraciones representan la verdad de lo implementado.
+
+## Labels
+
+### Tipos
+
+- `type::exploration`: tema o problema que necesita investigación y definición. Puede terminar sin implementación o producir una o varias Features.
+- `type::feature`: funcionalidad o cambio de producto definido para implementar.
+- `type::bug`: comportamiento existente que funciona incorrectamente.
+
+### Estados
+
+- `status::to-do`: trabajo definido y pendiente de implementación.
+- `status::in-progress`: trabajo que está siendo implementado actualmente.
+
+No usamos `status::done`: un Issue cerrado representa trabajo terminado.
+
+## Flujo general
+
+```text
+Idea / problema
+      ↓
+   ChatGPT
+      ↓
+¿Necesita exploración?
+   ├── Sí → Exploration → 0..N Features
+   └── No → Feature o Bug
+                    ↓
+             status::to-do
+                    ↓
+             se empieza a trabajar
+                    ↓
+         status::in-progress
+                    ↓
+                OpenCode
+                    ↓
+             Merge Request
+                    ↓
+                  Merge
+                    ↓
+                 Closed
+```
+
+## Exploration
+
+Una Exploration se usa cuando todavía necesitamos entender un problema, investigar alternativas o tomar decisiones antes de saber exactamente qué construir.
+
+Una Exploration abierta representa una investigación activa. No necesita un label de estado adicional.
+
+Puede producir:
+
+- ninguna Feature, si decidimos no construir nada;
+- una Feature;
+- varias Features independientes.
+
+Cuando la investigación termina, la Exploration se cierra.
+
+Ejemplo:
+
+```text
+Exploration: Sistema de socios
+        ↓
+        ├── Feature: Planes de membresía
+        ├── Feature: Gestión de socios
+        ├── Feature: Beneficios en reservas
+        └── Feature: Cobro de membresías
+```
+
+## Feature
+
+Una Feature representa algo concreto que queremos construir.
+
+Cuando está definida pero todavía no comenzó:
+
+```text
+type::feature
+status::to-do
+```
+
+Cuando comienza la implementación:
+
+```text
+type::feature
+status::in-progress
+```
+
+Cuando el Merge Request correspondiente se integra, el Issue se cierra.
+
+## Bug
+
+Un Bug representa un comportamiento existente que funciona incorrectamente.
+
+El flujo es el mismo que para una Feature:
+
+```text
+type::bug + status::to-do
+        ↓
+type::bug + status::in-progress
+        ↓
+Merge Request
+        ↓
+Closed
+```
+
+## Tasks
+
+No usamos Tasks por defecto.
+
+La descomposición técnica de una Feature —frontend, backend, migraciones, tests, etc.— se realiza durante la implementación cuando sea necesario.
+
+Solo incorporaremos Tasks si aparece una necesidad real de dividir trabajo grande en unidades independientes.
+
+## Responsabilidad de cada herramienta
+
+### ChatGPT
+
+Se utiliza para brainstorming, análisis de producto, investigación, decisiones y definición del trabajo.
+
+No todas las ideas deben llegar a GitLab. Una idea puede permanecer en una conversación o descartarse sin generar trabajo.
+
+### GitLab
+
+Es el sistema persistente de trabajo. Contiene Explorations, Features, Bugs, Merge Requests y la trazabilidad de lo realizado.
+
+Los Issues describen intención y trabajo; no son la fuente de verdad del comportamiento actualmente implementado.
+
+### OpenCode
+
+Es la herramienta principal de implementación. Toma una Feature o Bug, inspecciona el repositorio y las migraciones actuales, propone el plan técnico e implementa el cambio.
+
+### Código y migraciones
+
+El código actual y las migraciones son la fuente de verdad de lo que está realmente implementado.
+
+## Regla simple
+
+```text
+ChatGPT piensa
+      ↓
+GitLab define y registra el trabajo
+      ↓
+OpenCode implementa
+      ↓
+Merge Request integra el cambio
+      ↓
+Closed termina el trabajo
+```
