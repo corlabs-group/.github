@@ -20,23 +20,27 @@ Examples:
 * `Enable Club Following`
 * `Improve User Onboarding`
 
-Use the `epic` label.
+Use the `Epic` Issue Type.
 
-Epics may span multiple Sprints and do not have Story Points or Iterations.
+Epics may span multiple Sprints and are not Sprint-sized units of work.
 
 ### Issue
 
-An Issue represents a **concrete unit of work** that can be completed within a Sprint.
+An Issue represents a **concrete unit of work** tracked in GitHub.
 
-Use one of these labels when applicable:
+Every Issue must use the appropriate **Issue Type**:
 
-* `enhancement` — new or improved product behavior.
-* `bug` — existing behavior that works incorrectly.
-* `documentation` — documentation changes.
-* `chore` — maintenance or internal technical work.
-* `infrastructure` — infrastructure or operational work.
+* `Feature` — new or improved product behavior.
+* `Bug` — existing behavior that works incorrectly.
+* `Task` — concrete technical, operational, maintenance, documentation, or infrastructure work.
+* `Spike` — time-boxed investigation used to reduce uncertainty or inform a decision.
+* `Epic` — a larger, finite goal that groups related work and may span multiple Sprints.
 
-An Issue may belong to an Epic, but not every Issue needs one.
+`Feature`, `Bug`, and `Task` should normally represent work that can be completed within one Sprint.
+
+A `Spike` should have a clear question, scope, and expected outcome rather than implementation as its primary goal.
+
+An `Epic` is not a Sprint-sized unit of work. It may contain related Issues, but not every Issue needs to belong to an Epic.
 
 ---
 
